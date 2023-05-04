@@ -115,14 +115,16 @@ var_dump($checkParking, $minVote);
                 <?php foreach ($hotels as $hotel) : ?>
                     <tr>
                         <?php foreach ($hotel as $key => $value) : ?>
-                            <?php if ($hotel["parking"] == $checkParking || $checkParking === null && $hotel["vote"] >= $minVote) : ?>
-                            <?php if ($value === true) : ?>
-                                <td>Yes</td>
-                            <?php elseif ($value === false) : ?>
-                                <td>No</td>
-                            <?php else : ?>
-                            <td><?= $value ?></td>
-                            <?php endif ?>
+                            <?php if ($hotel["parking"] == $checkParking || $checkParking === null) : ?>
+                                <?php if ($hotel["vote"] >= $minVote) : ?>
+                                    <?php if ($value === true) : ?>
+                                        <td>Yes</td>
+                                    <?php elseif ($value === false) : ?>
+                                        <td>No</td>
+                                    <?php else : ?>
+                                        <td><?= $value ?></td>
+                                    <?php endif ?>
+                                <?php endif ?>
                             <?php endif ?>
                         <?php endforeach ?>
                     </tr>
