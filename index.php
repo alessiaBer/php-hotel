@@ -61,11 +61,38 @@ $hotels = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Hotel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        form {
+            font-size: 0.9rem;
+        }
+        .votation input {
+            width: fit-content;
+            height: fit-content;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
     
     <div class="container">
         <h1 class="py-4">PHP Hotels</h1>
+
+        <form action="" method="get" class="d-flex align-items-center mb-4">
+            <div class="parking">
+                <input class="form-check-input" type="checkbox" value="" id="parking" name="parking">
+                <label class="form-check-label" for="parking">
+                    Filter hotels with parking
+                </label> 
+            </div> 
+            <div class="votation ps-5">
+                <label for="vote" class="form-label d-inline-block m-0">
+                    Filter by minimum vote
+                </label>
+                <input type="number" class="form-control d-inline-block px-2 py-1" id="vote" name="vote" min="1" max="5">
+            </div>
+        </form>
+
+
         <table class="table">
             <thead>
                 <?php foreach ($hotels[0] as $key => $value) : ?>
