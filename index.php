@@ -51,6 +51,14 @@ $hotels = [
     ],
 
 ];
+
+$checkParking = ($_GET["parking"]);
+
+
+$minVote = ($_GET["vote"]);
+
+var_dump($checkParking, $minVote);
+
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +78,9 @@ $hotels = [
             height: fit-content;
             font-size: 0.8rem;
         }
+        .btn {
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
@@ -77,9 +88,9 @@ $hotels = [
     <div class="container">
         <h1 class="py-4">PHP Hotels</h1>
 
-        <form action="" method="get" class="d-flex align-items-center mb-4">
+        <form method="get" class="d-flex align-items-center mb-4">
             <div class="parking">
-                <input class="form-check-input" type="checkbox" value="" id="parking" name="parking">
+                <input class="form-check-input" type="checkbox" value="true" id="parking" name="parking">
                 <label class="form-check-label" for="parking">
                     Filter hotels with parking
                 </label> 
@@ -90,6 +101,7 @@ $hotels = [
                 </label>
                 <input type="number" class="form-control d-inline-block px-2 py-1" id="vote" name="vote" min="1" max="5">
             </div>
+            <button type="submit" class="btn btn-dark px-2 py-1 mx-3">Filter</button>
         </form>
 
 
@@ -103,12 +115,14 @@ $hotels = [
                 <?php foreach ($hotels as $hotel) : ?>
                     <tr>
                         <?php foreach ($hotel as $key => $value) : ?>
+                            <?php if ($hotel["parking"] == $checkParking || $checkParking === null && $hotel["vote"] >= $minVote) : ?>
                             <?php if ($value === true) : ?>
                                 <td>Yes</td>
                             <?php elseif ($value === false) : ?>
                                 <td>No</td>
                             <?php else : ?>
                             <td><?= $value ?></td>
+                            <?php endif ?>
                             <?php endif ?>
                         <?php endforeach ?>
                     </tr>
