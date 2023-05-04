@@ -52,8 +52,17 @@ $hotels = [
 
 ];
 
-$checkParking = $_GET["parking"];
-$minVote = $_GET["vote"];
+$checkParking = null; 
+if (array_key_exists("parking", $_GET)) {
+    $checkParking = $_GET["parking"];
+}; 
+
+$minVote = 0; 
+
+if (array_key_exists("vote", $_GET)) {
+    $minVote = $_GET["vote"];
+};
+
 $filteredArray = [];
 
 foreach ($hotels as $hotel) {
