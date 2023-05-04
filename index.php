@@ -52,8 +52,18 @@ $hotels = [
 
 ];
 
-$checkParking = ($_GET["parking"]);
-$minVote = ($_GET["vote"]);
+$checkParking = $_GET["parking"];
+$minVote = $_GET["vote"];
+$filteredArray = [];
+
+foreach ($hotels as $hotel) {
+    if ($hotel["parking"] == $checkParking || $checkParking === null) {
+        if ($hotel["vote"] >= $minVote) {
+            $filteredArray[] = $hotel;
+        }
+    }
+}
+
 
 ?>
 
@@ -108,27 +118,21 @@ $minVote = ($_GET["vote"]);
                 <?php endforeach?>
             </thead>
             <tbody>
-                <?php foreach ($hotels as $hotel) : ?>
+                <?php foreach ($filteredArray as $hotel) : ?>
                     <tr>
-                        <?php foreach ($hotel as $key => $value) : ?>
-                            <?php if ($hotel["parking"] == $checkParking || $checkParking === null) : ?>
-                                <?php if ($hotel["vote"] >= $minVote) : ?>
-                                    <?php if ($value === true) : ?>
-                                        <!-- se un value è uguale a true a schermo verrà mostrato "yes" -->
-                                        <td>Yes</td>
-                                    <?php elseif ($value === false) : ?>
-                                        <!-- se un value è uguale a false a schermo verrà mostrato "no" -->
-                                        <td>No</td>
-                                    <?php else : ?>
-                                        <!-- altrimenti verrà mostrato il value così com'è -->
-                                        <td><?= $value ?></td>
-                                    <?php endif ?>
-                                <?php endif ?>
-                                <!-- /if statement che verifica se un hotel rispetta il filtro vote scelto dall'user -->
-                            <?php endif ?>
-                            <!-- /if statement che verifica se un hotel rispetta il filtro parking scelto dall'user -->
-                        <?php endforeach ?>
-                        <!-- /foreach per ciclare all'interno del singolo hotel ed avere keys e values -->
+                        <td><?= $hotel["name"] ?></td>
+                        <td><?= $hotel["description"] ?></td>
+
+                        <?php if ($hotel["parking"] == true) : ?>
+                            <!-- se parking è uguale a true a schermo verrà mostrato "yes" -->
+                            <td>Yes</td>
+                        <?php else : ?>
+                            <!-- se parking è uguale a false a schermo verrà mostrato "no" -->
+                            <td>No</td>
+                        <?php endif ?>
+
+                        <td><?= $hotel["vote"] ?></td>
+                        <td><?= $hotel["distance_to_center"] ?></td>
                     </tr>
                 <?php endforeach ?>
                 <!-- /foreach per ciclare all'interno dell'array $hotels  -->
